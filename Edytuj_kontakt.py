@@ -100,6 +100,5 @@ with open ("Ksiazka Telefoniczna","w") as f:
     for line in lines:
         del line
 """test"""
-"""test2"""
 
 r.close()
