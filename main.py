@@ -1,29 +1,40 @@
-import Dodaj_kontakt
-import Edytuj_kontakt
+"""
+How program works:
+Program counts amount of line from txt file next adds values those lines to general array(arr_general)
+then sorts the values from the arr_general list into individual assigned to the appropriate
+information (arr_phone_number,arr_name,arr_surname)
+Then shows information from those lists for user
+if user input some changes then the data he changed is replaced with the new ones one the same positions in lists
+Then the entire contents of the txt file are deleted and the values from the list are rewritten to the file
+"""
 
-print("Ksiazka Telefoniczna")
-print("Wybierz numer z mozliwych ponizej:")
-print("1.Lista kontaktow")
-print("2.Dodaj kontakt")
-print("3.Edytuj kontakt")
-print("4.Usun kontakt")
-x=input("Co wybierasz: ")
-f=open("Ksiazka Telefoniczna","a+")
+import Add_contact
+import Edit_contact
+
+print("Phone Book")
+print("Choose a number from the option below:")
+print("1.List of contacts")
+print("2.Add contact")
+print("3.Edit contact")
+print("4.Delete contact")
+x=input("Your choice: ")
+f=open("Phone Book.txt","a+")
 
 if x=='1':
-    Edytuj_kontakt.pout_listy_kontaktow()
+    Edit_contact.pout_list_of_contacts()
 elif x=='2':
-    nr_tele = Dodaj_kontakt.dodaj_nr_tel()
-    f.write("\n"+nr_tele+"\n")
+    phone_number = Add_contact.add_a_phone_number()
+    f.write("\n" + phone_number + "\n")
 
-    imie=Dodaj_kontakt.dodaj_imie()
-    f.write(imie+"\n")
+    name=Add_contact.add_a_name()
+    f.write(name + "\n")
 
-    nazwisko=Dodaj_kontakt.dodaj_nazwisko()
-    f.write(nazwisko)
+    surname=Add_contact.add_a_surname()
+    f.write(surname)
+    print("Contact has been added successful")
 
 elif x=='3':
-    Edytuj_kontakt.edytuj_kontakt_main()
+    Edit_contact.edit_contact_main()
 elif x=='4':
-    Edytuj_kontakt.usuwanie_kontaktu()
+    Edit_contact.delete_contact()
 f.close()
