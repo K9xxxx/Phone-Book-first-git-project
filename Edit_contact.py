@@ -8,6 +8,7 @@ arr_AoL = []  # List with amount of line
 arr_general = []  # General list with every information from lines
 
 def adding_constants_to_the_list():
+    """The function which is responsible for not being able to delete emergency numbers"""
     with open("Phone Book.txt",mode='a+') as w:
         if amount_of_line()==0 or amount_of_line()==False:
             k=0
@@ -21,8 +22,8 @@ def adding_constants_to_the_list():
         w.seek(0)
 
 def amount_of_line():
-    i=0
     """Counts the number of lines in the txt file"""
+    i=0
     with open("Phone Book.txt",mode='r') as f:
         for i,l in enumerate(f):
             pass
@@ -30,6 +31,7 @@ def amount_of_line():
     return amount_of_line
 
 def adding_to_the_list(lines):
+    """Loop removal '\n' character and adding words from specified line to list"""
     sum = 0
     r=open("Phone Book.txt",mode="a+")
     r.seek(0)
@@ -37,11 +39,9 @@ def adding_to_the_list(lines):
     while i<=lines:
         arr_AoL.append(len(r.readline())) # Counts the numbers of characters from single line and adds those value to --
         i=i+1                             # the list
-
     i=int(0)
     r.seek(0)
 
-    """Loop removal '\n' character and adding words from specified line to list"""
     while i<=lines:
         if i==lines:
             read=r.read(arr_AoL[i])
@@ -51,40 +51,45 @@ def adding_to_the_list(lines):
         sum= sum + arr_AoL[i]
         r.seek(sum+i+1)
         i=i+1
-
     r.close()
 
 def sorting_to_the_list():
-    adding_to_the_list(amount_of_line())
     """Block that assign a number, first and last name, respectively, to the appropriate lists"""
-    a = 0
-    b = 1
-    c = 2
+    adding_to_the_list(amount_of_line())
+    a,b,c=0,1,2
+    That_is_true=False
     while a <= len(arr_AoL):
         try:
-            arr_phone_number.append(arr_general[a])
-            a = a + 3
+            if arr_general[a] in arr_phone_number:
+                break
+            else:
+                That_is_true = True
+                arr_phone_number.append(arr_general[a])
+                a = a + 3
         except IndexError:
             break
     while b <= len(arr_AoL):
-        try:
-            arr_name.append(arr_general[b])
-            b = b + 3
-        except IndexError:
+        if That_is_true==True:
+            try:
+                arr_name.append(arr_general[b])
+                b = b + 3
+            except IndexError:
+                break
+        else:
             break
     while c <= len(arr_AoL):
-        try:
-            arr_surname.append(arr_general[c])
-            c = c + 3
-        except IndexError:
+        if That_is_true==True:
+            try:
+                arr_surname.append(arr_general[c])
+                c = c + 3
+            except IndexError:
+                break
+        else:
             break
-    print(arr_general)
 
 def pout_list_of_contacts():
     """ Shows contacts in program """
-
     sorting_to_the_list()
-
     i=int(0)
     while i+1<=len(arr_phone_number):
         try:
@@ -120,13 +125,22 @@ def re_adding_to_the_list():
             f.write("{}".format(index))
 
 def delete_contact():
+    """Deleting specifed contact"""
     pout_list_of_contacts()
     print("\nWhich contact do you want to delete: ",end='')
     user_choice=int(input())
     delete_position(user_choice)
     re_adding_to_the_list()
 
+def delete_list_arr_gen():
+    "function that is responsible for deleting every element of main array-'arr_general' "
+    i=len(arr_general)-1
+    while i>=0:
+        del(arr_general[i])
+        i-=1
+
 def edit_contact_main():
+    """Main function responsible for 'List of contacts', 'Edit contact', 'Delete contact' in main file"""
     r=open("Phone Book.txt", mode="a+")
     adding_constants_to_the_list()
     pout_list_of_contacts()
