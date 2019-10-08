@@ -12,29 +12,42 @@ import Add_contact
 import Edit_contact
 
 print("Phone Book")
-print("Choose a number from the option below:")
-print("1.List of contacts")
-print("2.Add contact")
-print("3.Edit contact")
-print("4.Delete contact")
-x=input("Your choice: ")
-f=open("Phone Book.txt","a+")
+while True:
+    print("Choose a number from the option below:")
+    print("1.List of contacts")
+    print("2.Add contact")
+    print("3.Edit contact")
+    print("4.Delete contact")
+    print("\nEnter 'q' if you want to leave from program")
+    x = input("Your choice: ")
+    if x=='1':
+        with open("Phone Book.txt", "a+") as f:
+            Edit_contact.adding_constants_to_the_list()
+            Edit_contact.pout_list_of_contacts()
+        print('\n')
+    elif x=='2':
+        with open("Phone Book.txt", "a+") as f:
+            phone_number = Add_contact.add_a_phone_number()
+            f.write("\n" + phone_number + "\n")
 
-if x=='1':
-    Edit_contact.pout_list_of_contacts()
-elif x=='2':
-    phone_number = Add_contact.add_a_phone_number()
-    f.write("\n" + phone_number + "\n")
+            name=Add_contact.add_a_name()
+            f.write(name + "\n")
 
-    name=Add_contact.add_a_name()
-    f.write(name + "\n")
+            surname=Add_contact.add_a_surname()
+            f.write(surname)
+            print("Contact has been added successful\n")
+    elif x=='3':
+        with open("Phone Book.txt", "a+") as f:
+            Edit_contact.edit_contact_main()
 
-    surname=Add_contact.add_a_surname()
-    f.write(surname)
-    print("Contact has been added successful")
+    elif x=='4':
+        with open("Phone Book.txt", "a+") as f:
+            Edit_contact.delete_contact()
 
-elif x=='3':
-    Edit_contact.edit_contact_main()
-elif x=='4':
-    Edit_contact.delete_contact()
-f.close()
+    elif x=='q':
+        break
+    else:
+        print("Nie ma takiej mozliwosci")
+        continue
+    with open("Phone Book.txt", "a+") as f:
+        Edit_contact.delete_list_arr_gen()
