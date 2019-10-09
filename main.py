@@ -13,24 +13,25 @@ import Edit_contact
 
 print("Phone Book")
 while True:
-    print("Choose a number from the option below:")
+    print("\nChoose a number from the option below:")
     print("1.List of contacts")
     print("2.Add contact")
     print("3.Edit contact")
     print("4.Delete contact")
+    print("5.Make a call")
     print("\nEnter 'q' if you want to leave from program")
     x = input("Your choice: ")
     if x=='1':
         with open("Phone Book.txt", "a+") as f:
-            Edit_contact.adding_constants_to_the_list()
-            Edit_contact.pout_list_of_contacts()
-        print('\n')
+            Edit_contact.show_contacts()
     elif x=='2':
         with open("Phone Book.txt", "a+") as f:
             phone_number = Add_contact.add_a_phone_number()
             f.write("\n" + phone_number + "\n")
 
             name=Add_contact.add_a_name()
+            if name==' ':
+                name=phone_number
             f.write(name + "\n")
 
             surname=Add_contact.add_a_surname()
@@ -43,11 +44,13 @@ while True:
     elif x=='4':
         with open("Phone Book.txt", "a+") as f:
             Edit_contact.delete_contact()
+    elif x=='5':
+        Edit_contact.call_a_contact()
 
     elif x=='q':
         break
     else:
-        print("Nie ma takiej mozliwosci")
+        print("It is not possible")
         continue
     with open("Phone Book.txt", "a+") as f:
         Edit_contact.delete_list_arr_gen()
