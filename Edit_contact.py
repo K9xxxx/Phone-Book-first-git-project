@@ -1,4 +1,5 @@
 import Add_contact
+import time
 
 arr_emg_num=("997", "Police", " ", "998", "Fire department", " ", "999", "Emergency service", " ")
 arr_name = []  # List of name
@@ -6,6 +7,7 @@ arr_surname = []  # List of surname
 arr_phone_number = []  # A list of phone numbers
 arr_AoL = []  # List with amount of line
 arr_general = []  # General list with every information from lines
+dickt_general={}  # General dictionary for make a call
 
 def adding_constants_to_the_list():
     """The function which is responsible for not being able to delete emergency numbers"""
@@ -90,6 +92,7 @@ def sorting_to_the_list():
 def pout_list_of_contacts():
     """ Shows contacts in program """
     sorting_to_the_list()
+
     i=int(0)
     while i+1<=len(arr_phone_number):
         try:
@@ -138,6 +141,54 @@ def delete_list_arr_gen():
     while i>=0:
         del(arr_general[i])
         i-=1
+
+def call_a_contact():
+    """A function that imitates a telephone call"""
+    sorting_to_the_list()
+    a,b,c=0,1,0
+    while a<=len(arr_general):
+        try:
+            dickt_general[arr_general[c]]=arr_general[b]
+        except IndexError:
+            break
+        b=b+3
+        c=c+3
+        a=a+1
+    print("Write a number to call: ",end='')
+    x=input()
+    if x in arr_general:
+        print(dickt_general[x])
+        print('.', end='')
+        time.sleep(1)
+        print('.',end='')
+        time.sleep(1)
+        print('.')
+        time.sleep(2)
+    else:
+        print(x)
+        print('.', end='')
+        time.sleep(1)
+        print('.',end='')
+        time.sleep(1)
+        print('.')
+        time.sleep(2)
+
+def show_contacts():
+    """A function that shows all contacts and allows you to call anybody"""
+    adding_constants_to_the_list()
+    pout_list_of_contacts()
+    print("\nIf You want to call somebady enter 'y'")
+    x=input().lower()
+    if x=='y':
+        print("\n Who do you want to call?:",end='')
+        x=int(input())
+        print(arr_name[x-1]+" "+arr_surname[x-1])
+        print('.', end='')
+        time.sleep(1)
+        print('.', end='')
+        time.sleep(1)
+        print('.')
+        time.sleep(2)
 
 def edit_contact_main():
     """Main function responsible for 'List of contacts', 'Edit contact', 'Delete contact' in main file"""
